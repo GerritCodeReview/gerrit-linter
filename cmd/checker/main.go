@@ -28,8 +28,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/google/gerritfmt"
-	"github.com/google/gerritfmt/gerrit"
+	gerritfmt "github.com/google/gerrit-linter"
+	"github.com/google/gerrit-linter/gerrit"
 	"github.com/google/slothfs/cookie"
 )
 
