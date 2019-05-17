@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f438f6db_878bf851",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2019-05-17T09:38:24Z",
+      "side": 1,
+      "message": "gerritlinter ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "8b5be2d5673bb67adbeb3cd13ff73e226826c5e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
