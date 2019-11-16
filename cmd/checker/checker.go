@@ -120,14 +120,6 @@ func NewGerritChecker(server *gerrit.Server) (*gerritChecker, error) {
 		todo:   make(chan *gerrit.PendingChecksInfo, 5),
 	}
 
-	if out, err := gc.ListCheckers(); err != nil {
-		return nil, err
-	} else {
-		for _, checker := range out {
-			gc.checkerUUIDs = append(gc.checkerUUIDs, checker.UUID)
-		}
-	}
-
 	go gc.pendingLoop()
 	return gc, nil
 }
@@ -192,22 +184,20 @@ func (c *gerritChecker) checkChange(changeID string, psID int, language string) 
 
 func (c *gerritChecker) pendingLoop() {
 	for {
-		for _, uuid := range c.checkerUUIDs {
-			pending, err := c.server.PendingChecks(uuid)
-			if err != nil {
-				log.Printf("PendingChecks: %v", err)
-				continue
-			}
-			if len(pending) == 0 {
-				log.Printf("no pending checks")
-			}
+		pending, err := c.server.PendingChecksByScheme(checkerScheme)
+		if err != nil {
+			log.Printf("PendingChecksByScheme: %v", err)
+			continue
+		}
+		if len(pending) == 0 {
+			log.Printf("no pending checks")
+		}
 
-			for _, pc := range pending {
-				select {
-				case c.todo <- pc:
-				default:
-					log.Println("too busy; dropping pending check.")
-				}
+		for _, pc := range pending {
+			select {
+			case c.todo <- pc:
+			default:
+				log.Println("too busy; dropping pending check.")
 			}
 		}
 		// TODO: real rate limiting.
@@ -274,7 +264,7 @@ func (gc *gerritChecker) executeCheck(pc *gerrit.PendingChecksInfo) error {
 				status = statusIrrelevant
 			} else if err != nil {
 				status = statusFail
-				log.Printf("checkChange(%s, %d, %q): %v", changeID, psID, lang)
+				log.Printf("checkChange(%s, %d, %q): %v", changeID, psID, lang, err)
 				msgs = []string{fmt.Sprintf("tool failure: %v", err)}
 			} else if len(msgs) == 0 {
 				status = statusSuccessful
