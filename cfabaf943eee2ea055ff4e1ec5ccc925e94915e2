@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5cb577a6_dc78f5c1",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2019-11-19T02:03:38Z",
+      "side": 1,
+      "message": "clarified commit msg.",
+      "parentUuid": "1eb9aec8_7acd50c3",
+      "range": {
+        "startLine": 184,
+        "startChar": 49,
+        "endLine": 184,
+        "endChar": 62
+      },
+      "revId": "cfabaf943eee2ea055ff4e1ec5ccc925e94915e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ebe6adc_0febef2d",
         "filename": "gerrit/server.go",
         "patchSetId": 2
