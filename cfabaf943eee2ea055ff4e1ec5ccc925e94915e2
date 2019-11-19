@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "31c03076_ba04065e",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-11-19T01:15:19Z",
+      "side": 1,
+      "message": "Previously you looped over all UUIDs, now you only loop over checkers with a specific scheme (fmt). Is that intentional?",
+      "range": {
+        "startLine": 184,
+        "startChar": 49,
+        "endLine": 184,
+        "endChar": 62
+      },
+      "revId": "cfabaf943eee2ea055ff4e1ec5ccc925e94915e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ebe6adc_0febef2d",
         "filename": "gerrit/server.go",
         "patchSetId": 2
@@ -46,6 +69,30 @@
       "revId": "cfabaf943eee2ea055ff4e1ec5ccc925e94915e2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823629e3_5dffa946",
+        "filename": "gerrit/server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-11-19T01:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb52a790_e1a9e891",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 29
+      },
+      "revId": "cfabaf943eee2ea055ff4e1ec5ccc925e94915e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
