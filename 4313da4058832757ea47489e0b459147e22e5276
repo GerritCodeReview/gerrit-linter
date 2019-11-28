@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd48ca68_3e941e7b",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-11-28T13:26:38Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 129,
+        "startChar": 46,
+        "endLine": 129,
+        "endChar": 54
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a666e9b0_074793f7",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-11-28T13:26:38Z",
+      "side": 1,
+      "message": "This is still unclear",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 43
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9384aed7_7d11bfd3",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-11-28T13:26:38Z",
+      "side": 1,
+      "message": "better: as its argument",
+      "range": {
+        "startLine": 246,
+        "startChar": 50,
+        "endLine": 246,
+        "endChar": 62
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d03d40ed_69033aff",
+        "filename": "gerrit/server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-11-28T13:26:38Z",
+      "side": 1,
+      "message": "better: NewGerritServer",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 8
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
