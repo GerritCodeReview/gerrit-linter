@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5440f769_d95c7829",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2019-12-09T10:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd48ca68_3e941e7b",
+      "range": {
+        "startLine": 129,
+        "startChar": 46,
+        "endLine": 129,
+        "endChar": 54
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a666e9b0_074793f7",
         "filename": "cmd/checker/checker.go",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "4313da4058832757ea47489e0b459147e22e5276",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cf3b86e_75d5c97f",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2019-12-09T10:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a666e9b0_074793f7",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 43
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "483dbc4f_aba36117",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2019-12-09T10:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9384aed7_7d11bfd3",
+      "range": {
+        "startLine": 246,
+        "startChar": 50,
+        "endLine": 246,
+        "endChar": 62
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d03d40ed_69033aff",
         "filename": "gerrit/server.go",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-11-28T13:26:38Z",
       "side": 1,
       "message": "better: NewGerritServer",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 8
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8176c65c_78b526e2",
+        "filename": "gerrit/server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2019-12-09T10:19:13Z",
+      "side": 1,
+      "message": "this stutters. See https://blog.golang.org/package-names for background.",
+      "parentUuid": "d03d40ed_69033aff",
       "range": {
         "startLine": 43,
         "startChar": 5,
