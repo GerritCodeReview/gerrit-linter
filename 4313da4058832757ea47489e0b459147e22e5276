@@ -187,6 +187,30 @@
       "revId": "4313da4058832757ea47489e0b459147e22e5276",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0f5d3e6_76307216",
+        "filename": "gerrit/server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2019-12-11T13:37:51Z",
+      "side": 1,
+      "message": "Good to know, the standards are different in Java.",
+      "parentUuid": "8176c65c_78b526e2",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 8
+      },
+      "revId": "4313da4058832757ea47489e0b459147e22e5276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
