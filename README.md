@@ -68,6 +68,16 @@ The currently supported formatters are written in Java and Go, so this should
 not be an issue.
 
 
+## DOCKER
+
+```
+docker build -t \
+  linter-$(date --iso-8601=minutes | tr -d ':' | tr '[A-Z]' '[a-z]'| sed \
+    's|\+.*$||')-$(git rev-parse --short HEAD) \
+  -f Dockerfile .
+```
+
+
 ## DISCLAIMER
 
 This is not an official Google product
