@@ -7,3 +7,5 @@ require (
 	github.com/google/slothfs v0.0.0-20190417171004-6b42407d9230
 	golang.org/x/sys v0.0.0-20190405154228-4b34438f7a67 // indirect
 )
+
+go 1.13
