@@ -68,6 +68,20 @@ The currently supported formatters are written in Java and Go, so this should
 not be an issue.
 
 
+## DOCKER
+
+The following examples shows how to build a Docker image hosted on GCP, in the
+project `api-project-164060093628`.
+
+```
+VERSION=$(date --iso-8601=minutes | tr -d ':' | tr '[A-Z]' '[a-z]'| sed \
+    's|\+.*$||')-$(git rev-parse --short HEAD)
+NAME=gcr.io/api-project-164060093628/gerrit-linter:${VERSION}
+docker build -t ${NAME} -f Dockerfile .
+docker push ${NAME}
+```
+
+
 ## DISCLAIMER
 
 This is not an official Google product
