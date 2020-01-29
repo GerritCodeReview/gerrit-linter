@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab100971_b3a25726",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-01-29T12:39:22Z",
+      "side": 1,
+      "message": "I don\u0027t really understand the purpose of upgrading the \"basicAuth\" to \"Authenticator\" from the commit message.",
+      "revId": "20ab346b904d74c997223fcc9f148a07625d3255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e4b7b9b_eed63ade",
+        "filename": "cmd/checker/gcp.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-01-29T12:39:22Z",
+      "side": 1,
+      "message": "can be moved to line 96",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 17
+      },
+      "revId": "20ab346b904d74c997223fcc9f148a07625d3255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bf553bc_b5eee72a",
+        "filename": "cmd/checker/main.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-01-29T12:39:22Z",
+      "side": 1,
+      "message": "If both authFile and gcpServiceAccount are set, gcpServiceAccount is ignored. Perhaps throw an error if both are set.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "20ab346b904d74c997223fcc9f148a07625d3255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a55a063_ee68940d",
+        "filename": "cmd/checker/main.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-01-29T12:39:22Z",
+      "side": 1,
+      "message": "This is redundant based on lines 48-50. However, I think it would be better to remove the \"else\" (and throw an error if both are set).",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "20ab346b904d74c997223fcc9f148a07625d3255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1dc5b7_31513cc9",
+        "filename": "cmd/checker/main.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-01-29T12:39:22Z",
+      "side": 1,
+      "message": "nit: could be moved to line 63",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 17
+      },
+      "revId": "20ab346b904d74c997223fcc9f148a07625d3255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f6acf36_80d99539",
+        "filename": "cmd/checker/main.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-01-29T12:39:22Z",
+      "side": 1,
+      "message": "nit: avoids*",
+      "range": {
+        "startLine": 71,
+        "startChar": 43,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "20ab346b904d74c997223fcc9f148a07625d3255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
