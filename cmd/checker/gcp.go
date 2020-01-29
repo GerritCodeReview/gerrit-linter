@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 
@@ -56,6 +57,26 @@ func (tc *tokenCache) Authenticate(req *http.Request) error {
 	return nil
 }
 
+func (tc *tokenCache) fetchScopes() ([]string, error) {
+	u := fmt.Sprintf("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/%s/scopes",
+		tc.account)
+
+	req, err := http.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Metadata-Flavor", "Google")
+
+	resp, err := http.DefaultClient.Do(req.WithContext(context.Background()))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	all, _ := ioutil.ReadAll(resp.Body)
+
+	return strings.Split(strings.TrimSpace(string(all)), "\n"), nil
+}
+
 // fetch gets the token from the metadata server.
 func (tc *tokenCache) fetch() (*gcpToken, error) {
 	u := fmt.Sprintf("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/%s/token",
@@ -86,14 +107,33 @@ func (tc *tokenCache) fetch() (*gcpToken, error) {
 	return tok, nil
 }
 
+const gerritScope = "https://www.googleapis.com/auth/gerritcodereview"
+
 // NewGCPServiceAccount returns a Authenticator that will use GCP
-// bearer-tokens. The tokens are refreshed automatically.
+// bearer-tokens to authenticate against a googlesource.com Gerrit
+// instance. The tokens are refreshed automatically.
 func NewGCPServiceAccount(account string) (gerrit.Authenticator, error) {
 	tc := tokenCache{
 		account: account,
 	}
 
-	tc.current, err := tc.fetch()
+	scopes, err := tc.fetchScopes()
+	if err != nil {
+		return nil, err
+	}
+
+	found := false
+	for _, s := range scopes {
+		if s == gerritScope {
+			found = true
+			break
+		}
+	}
+	if !found {
+		return nil, fmt.Errorf("missing scope %q, got %q", scopes)
+	}
+
+	tc.current, err = tc.fetch()
 	if err != nil {
 		return nil, err
 	}
