@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63fbb452_d88805f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-01-30T18:02:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdc24a6b_ae30c3fe",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "2de020b9c32def19e9531d67b5b621fabb40c29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffc85c59_129af642",
         "filename": "cmd/checker/gcp.go",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9ed4d8b9_4900b53b",
+        "filename": "cmd/checker/gcp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-01-30T18:02:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc85c59_129af642",
+      "range": {
+        "startLine": 61,
+        "startChar": 18,
+        "endLine": 61,
+        "endChar": 105
+      },
+      "revId": "2de020b9c32def19e9531d67b5b621fabb40c29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3007882d_726c939d",
         "filename": "cmd/checker/gcp.go",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-30T17:48:44Z",
       "side": 1,
       "message": "This can be a function. That way, the break would be replaced with a return and if !found can be replaced with if err !\u003d nil.",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 2
+      },
+      "revId": "2de020b9c32def19e9531d67b5b621fabb40c29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6b56936_93488eb2",
+        "filename": "cmd/checker/gcp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-01-30T18:02:51Z",
+      "side": 1,
+      "message": "it can, but I don\u0027t think the advantage is worth it. We do this only once.",
+      "parentUuid": "3007882d_726c939d",
       "range": {
         "startLine": 125,
         "startChar": 2,
