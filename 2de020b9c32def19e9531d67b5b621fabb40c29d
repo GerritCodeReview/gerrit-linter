@@ -140,6 +140,30 @@
       "revId": "2de020b9c32def19e9531d67b5b621fabb40c29d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ffbf567_aad818df",
+        "filename": "cmd/checker/gcp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-02-03T09:57:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6b56936_93488eb2",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 2
+      },
+      "revId": "2de020b9c32def19e9531d67b5b621fabb40c29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
