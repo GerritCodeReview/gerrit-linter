@@ -60,7 +60,8 @@ func (ts *Timestamp) String() string {
 var _ = (json.Marshaler)((*Timestamp)(nil))
 
 func (ts *Timestamp) MarshalJSON() ([]byte, error) {
-	t := (*time.Time)(ts)
+	t := (*time.Time)(ts).UTC()
+
 	return []byte("\"" + t.Format(timeLayout) + "\""), nil
 }
 
