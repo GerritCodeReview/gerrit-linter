@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -89,6 +90,14 @@ func (g *Server) GetPath(p string) ([]byte, error) {
 	return g.Get(&u)
 }
 
+func (g *Server) GetPathJSON(p string, data interface{}) error {
+	content, err := g.GetPath(p)
+	if err != nil {
+		return err
+	}
+	return Unmarshal(content, data)
+}
+
 // Do runs a HTTP request against the remote server.
 func (g *Server) Do(req *http.Request) (*http.Response, error) {
 	req.Header.Set("User-Agent", g.UserAgent)
@@ -134,6 +143,32 @@ func (g *Server) PutPath(path string, contentType string, content []byte) ([]byt
 // PostPath POSTs the given data onto a path.
 func (g *Server) PostPath(path string, contentType string, content []byte) ([]byte, error) {
 	return g.putPostPath("POST", path, contentType, content)
+}
+
+// PostPathJSON does a JSON based REST RPC.
+func (g *Server) PostPathJSON(path, contentType string, input, output interface{}) error {
+	return g.putPostPathJSON("POST", path, contentType, input, output)
+}
+
+// PutPathJSON does a JSON based REST RPC.
+func (g *Server) PutPathJSON(path, contentType string, input, output interface{}) error {
+	return g.putPostPathJSON("PUT", path, contentType, input, output)
+}
+
+// putPostPathJSON does a JSON based REST RPC.
+func (g *Server) putPostPathJSON(method, path, contentType string, input, output interface{}) error {
+	content, err := json.Marshal(input)
+	if err != nil {
+		return err
+	}
+
+	resp, err := g.putPostPath(method, path, contentType, content)
+	if err != nil {
+		log.Println(err, string(content))
+		return err
+	}
+
+	return Unmarshal(resp, output)
 }
 
 func (g *Server) putPostPath(method string, pth string, contentType string, content []byte) ([]byte, error) {
@@ -182,15 +217,10 @@ func (g *Server) GetContent(changeID string, revID string, fileID string) ([]byt
 
 // GetChange returns the Change (including file contents) for a given change.
 func (g *Server) GetChange(changeID string, revID string) (*Change, error) {
-	content, err := g.GetPath(fmt.Sprintf("changes/%s/revisions/%s/files/",
-		url.PathEscape(changeID), revID))
-	if err != nil {
-		return nil, err
-	}
-	content = bytes.TrimPrefix(content, jsonPrefix)
-
 	files := map[string]*File{}
-	if err := json.Unmarshal(content, &files); err != nil {
+	err := g.GetPathJSON(fmt.Sprintf("changes/%s/revisions/%s/files/",
+		url.PathEscape(changeID), revID), &files)
+	if err != nil {
 		return nil, err
 	}
 
@@ -254,37 +284,21 @@ func (s *Server) PendingChecks(checkerUUID string) ([]*PendingChecksInfo, error)
 
 // PostCheck posts a single check result onto a change.
 func (s *Server) PostCheck(changeID string, psID int, input *CheckInput) (*CheckInfo, error) {
-	body, err := json.Marshal(input)
+	var output CheckInfo
+	err := s.PostPathJSON(fmt.Sprintf("a/changes/%s/revisions/%d/checks/", changeID, psID),
+		"application/json", input, &output)
 	if err != nil {
 		return nil, err
 	}
 
-	res, err := s.PostPath(fmt.Sprintf("a/changes/%s/revisions/%d/checks/", changeID, psID),
-		"application/json", body)
-	if err != nil {
-		return nil, err
-	}
-
-	var out CheckInfo
-	if err := Unmarshal(res, &out); err != nil {
-		return nil, err
-	}
-
-	return &out, nil
+	return &output, nil
 }
 
+// GetCheck returns info for a single check.
 func (s *Server) GetCheck(changeID string, psID int, uuid string) (*CheckInfo, error) {
-	u := s.URL
-	u.Path = path.Join(u.Path, fmt.Sprintf("changes/%s/revisions/%d/checks/%s", changeID, psID, uuid))
-	content, err := s.Get(&u)
-	if err != nil {
-		return nil, err
-	}
-
 	var out CheckInfo
-	if err := Unmarshal(content, &out); err != nil {
-		return nil, err
-	}
+	err := s.GetPathJSON(fmt.Sprintf("changes/%s/revisions/%d/checks/%s", changeID, psID, uuid),
+		&out)
 
-	return &out, nil
+	return &out, err
 }
