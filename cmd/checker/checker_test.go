@@ -29,6 +29,16 @@ import (
 	"github.com/google/gerrit-linter/gerrit"
 )
 
+func TestSchemeLanguage(t *testing.T) {
+	lang, ok := checkerLanguage("fmt:commitfooter-Change-Id.1234")
+	if !ok {
+		t.Fatalf("checkerLanguage failed")
+	}
+	if want := "commitfooter-Change-Id"; lang != want {
+		t.Errorf("got %q, want %q", lang, want)
+	}
+}
+
 func urlParse(s string) url.URL {
 	u, err := url.Parse(s)
 	if err != nil {
@@ -66,6 +76,17 @@ func TestGerrit(t *testing.T) {
 			t.Fatalf("create PostChecker: %v", err)
 		}
 	}
+
+	footerLang := "commitfooter-User-Visible"
+	footerChecker, err := gc.PostChecker("gerrit-linter-test", footerLang, true)
+	if err != nil {
+		// create
+		footerChecker, err = gc.PostChecker("gerrit-linter-test", footerLang, false)
+		if err != nil {
+			t.Fatalf("create PostChecker: %v", err)
+		}
+	}
+
 	content, err := g.PostPath("a/changes/",
 		"application/json",
 		[]byte(`{
@@ -81,9 +102,15 @@ func TestGerrit(t *testing.T) {
 		t.Fatal(err)
 	}
 	log.Printf("created change %d", change.Number)
+	defer func() {
+		if _, err := g.PostPath(fmt.Sprintf("a/changes/%d/abandon", change.Number),
+			"application/json", []byte(`{"message": "test succeeded"}`)); err != nil {
+			log.Printf("abandon: %v", err)
+		}
+	}()
 
 	// This isn't great, but what can we do?
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(200 * time.Millisecond)
 
 	info, err := g.GetCheck(fmt.Sprintf("%d", change.Number), 1, msgChecker.UUID)
 	if err != nil {
@@ -94,11 +121,19 @@ func TestGerrit(t *testing.T) {
 		t.Fatalf("got %q, want %q", info.State, want)
 	}
 
-	editURL := g.URL
+	info, err = g.GetCheck(fmt.Sprintf("%d", change.Number), 1, footerChecker.UUID)
+	if err != nil {
+		t.Fatal(err)
+	}
 
+	if want := "FAILED"; info.State != want {
+		t.Fatalf("got %q, want %q", info.State, want)
+	}
+
+	editURL := g.URL
 	editURL.Path = path.Join(editURL.Path, fmt.Sprintf("a/changes/%d/message", change.Number))
 
-	body := fmt.Sprintf(`{"message": "New Commit message\n\nChange-Id: %s\n"}`, change.ChangeId)
+	body := fmt.Sprintf(`{"message": "New Commit message\n\nUser-Visible: rainbows\nChange-Id: %s\n"}`, change.ChangeId)
 
 	req, err := http.NewRequest("PUT", editURL.String(), bytes.NewBufferString(body))
 	if err != nil {
@@ -118,7 +153,7 @@ func TestGerrit(t *testing.T) {
 	if err != nil {
 		t.Fatalf("PUT: %v", err)
 	}
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(200 * time.Millisecond)
 
 	info, err = g.GetCheck(strconv.Itoa(change.Number), 2, msgChecker.UUID)
 	if err != nil {
@@ -129,8 +164,4 @@ func TestGerrit(t *testing.T) {
 		t.Fatalf("got %q, want 'SUCCESSFUL'", info.State)
 	}
 
-	if _, err := g.PostPath(fmt.Sprintf("a/changes/%d/abandon", change.Number),
-		"application/json", []byte(`{"message": "test succeeded"}`)); err != nil {
-		t.Fatalf("abandon: %v", err)
-	}
 }

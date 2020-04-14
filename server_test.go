@@ -15,6 +15,7 @@
 package gerritlinter
 
 import (
+	"bytes"
 	"strings"
 	"testing"
 )
@@ -41,4 +42,56 @@ def`: "",
 			t.Errorf("got %s, want substring %s", got, want)
 		}
 	}
+}
+
+func TestCommitFooter(t *testing.T) {
+	for in, want := range map[string]string{
+		`abc`: "two paragraphs",
+		`abc
+
+def
+`: "not found",
+		`abc.
+
+myfooter:abc`: "space after",
+		`abc
+
+Change-Id: Iabc123
+myfooter: value!`: "",
+	} {
+		got := checkCommitFooter(in, "myfooter")
+
+		if want == "" && got != "" {
+			t.Errorf("want empty, got %s", got)
+		} else if !strings.Contains(got, want) {
+			t.Errorf("got %s, want substring %s", got, want)
+		}
+	}
+}
+
+func TestCommitFooterFormat(t *testing.T) {
+	commitfooter.myfooter:
+	uuid := map[string]string{
+		"fmt:myfooter.abc": "not found",
+		"fmt:myfooter-abc": "invalid UUID",
+		"invalid": "invalid UUID",
+	}
+
+
+	files := []File{{
+		Content: []byte(`abc
+
+Change-Id: I1234abc`),
+	}}
+	formatter := commitFooterFormatter{}
+
+	out, err := formatter.Format(files, &bytes.Buffer{})
+	if err != nil {
+		t.Fatalf("Format: %v ", err)
+	}
+	if len(out) != 1 {
+		t.Errorf("got %v, want 1 result", out)
+	}
+
+
 }

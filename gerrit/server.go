@@ -243,6 +243,22 @@ func (s *Server) PendingChecks(checkerUUID string) ([]*PendingChecksInfo, error)
 	return out, nil
 }
 
+func (s *Server) GetCheck(changeID string, psID int, uuid string) (*CheckInfo, error) {
+	u := s.URL
+	u.Path = path.Join(u.Path, fmt.Sprintf("changes/%s/revisions/%d/checks/%s", changeID, psID, uuid))
+	content, err := s.Get(&u)
+	if err != nil {
+		return nil, err
+	}
+
+	var out CheckInfo
+	if err := Unmarshal(content, &out); err != nil {
+		return nil, err
+	}
+
+	return &out, nil
+}
+
 // PostCheck posts a single check result onto a change.
 func (s *Server) PostCheck(changeID string, psID int, input *CheckInput) (*CheckInfo, error) {
 	body, err := json.Marshal(input)

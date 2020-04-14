@@ -47,8 +47,8 @@ type FormatterConfig struct {
 	Formatter Formatter
 }
 
-// Formatters holds all the formatters supported
-var Formatters = map[string]*FormatterConfig{
+// formatters holds all the formatters supported
+var formatters = map[string]*FormatterConfig{
 	"commitmsg": {
 		Regex:     regexp.MustCompile(`^/COMMIT_MSG$`),
 		Formatter: &commitMsgFormatter{},
@@ -63,7 +63,7 @@ func init() {
 
 	gjf, err := exec.LookPath("google-java-format.jar")
 	if err == nil {
-		Formatters["java"] = &FormatterConfig{
+		formatters["java"] = &FormatterConfig{
 			Regex: regexp.MustCompile(`\.java$`),
 			Query: "ext:java",
 			Formatter: &toolFormatter{
@@ -77,7 +77,7 @@ func init() {
 
 	bzl, err := exec.LookPath("buildifier")
 	if err == nil {
-		Formatters["bzl"] = &FormatterConfig{
+		formatters["bzl"] = &FormatterConfig{
 			Regex: regexp.MustCompile(`(\.bzl|/BUILD|^BUILD)$`),
 			Query: "(ext:bzl OR file:BUILD OR file:WORKSPACE)",
 			Formatter: &toolFormatter{
@@ -91,7 +91,7 @@ func init() {
 
 	gofmt, err := exec.LookPath("gofmt")
 	if err == nil {
-		Formatters["go"] = &FormatterConfig{
+		formatters["go"] = &FormatterConfig{
 			Regex: regexp.MustCompile(`\.go$`),
 			Query: "ext:go",
 			Formatter: &toolFormatter{
@@ -104,16 +104,31 @@ func init() {
 	}
 }
 
+func GetFormatter(lang string) (*FormatterConfig, bool) {
+	footerPrefix := "commitfooter-"
+	if strings.HasPrefix(lang, footerPrefix) {
+		return &FormatterConfig{
+			Regex: regexp.MustCompile(`^/COMMIT_MSG$`),
+			Formatter: &commitFooterFormatter{
+				Footer: lang[len(footerPrefix):],
+			},
+		}, true
+	}
+
+	cfg, ok := formatters[lang]
+	return cfg, ok
+}
+
 // IsSupported returns if the given language is supported.
 func IsSupported(lang string) bool {
-	_, ok := Formatters[lang]
+	_, ok := GetFormatter(lang)
 	return ok
 }
 
 // SupportedLanguages returns a list of languages.
 func SupportedLanguages() []string {
 	var r []string
-	for l := range Formatters {
+	for l := range formatters {
 		r = append(r, l)
 	}
 	sort.Strings(r)
@@ -138,9 +153,10 @@ func Format(req *FormatRequest, rep *FormatReply) error {
 
 	for language, fs := range splitByLang(req.Files) {
 		var buf bytes.Buffer
-		entry := Formatters[language]
-		log.Println("init", Formatters)
-
+		entry, ok := GetFormatter(language)
+		if !ok {
+			return fmt.Errorf("linter: no formatter for %q", language)
+		}
 		out, err := entry.Formatter.Format(fs, &buf)
 		if err != nil {
 			return err
@@ -188,6 +204,53 @@ func checkCommitMessage(msg string) (complaint string) {
 	}
 
 	return ""
+}
+
+type commitFooterFormatter struct {
+	Footer string
+}
+
+func (f *commitFooterFormatter) Format(in []File, outSink io.Writer) (out []FormattedFile, err error) {
+	complaint := checkCommitFooter(string(in[0].Content), f.Footer)
+	ff := FormattedFile{}
+	ff.Name = in[0].Name
+	if complaint != "" {
+		ff.Message = complaint
+	} else {
+		ff.Content = in[0].Content
+	}
+	out = append(out, ff)
+	return out, nil
+}
+
+func checkCommitFooter(message, footer string) string {
+	blocks := strings.Split(message, "\n\n")
+	if len(blocks) < 2 {
+		return "gerrit changes must have two paragraphs."
+	}
+
+	footerBlock := blocks[len(blocks)-1]
+	lines := strings.Split(footerBlock, "\n")
+	for _, l := range lines {
+		fields := strings.SplitN(l, ":", 2)
+		if len(fields) < 2 {
+			continue
+		}
+
+		if fields[0] != footer {
+			continue
+		}
+
+		value := fields[1]
+		if !strings.HasPrefix(value, " ") {
+			return fmt.Sprintf("footer %q should have space after ':'", fields[1])
+		}
+
+		// length limit?
+		return ""
+	}
+
+	return fmt.Sprintf("footer %q not found", footer)
 }
 
 type toolFormatter struct {

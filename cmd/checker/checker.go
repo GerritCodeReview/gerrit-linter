@@ -72,14 +72,18 @@ func (gc *gerritChecker) PostChecker(repo, language string, update bool) (*gerri
 	hash := sha1.New()
 	hash.Write([]byte(repo))
 
-	uuid := fmt.Sprintf("%s:%s-%x", checkerScheme, language, hash.Sum(nil))
+	uuid := fmt.Sprintf("%s:%s.%x", checkerScheme, language, hash.Sum(nil))
+	cfg, ok := linter.GetFormatter(language)
+	if !ok {
+		return nil, fmt.Errorf("no checker for language %q", language)
+	}
 	in := gerrit.CheckerInput{
 		UUID:        uuid,
 		Name:        language + " formatting",
 		Repository:  repo,
 		Description: "check source code formatting.",
 		Status:      "ENABLED",
-		Query:       linter.Formatters[language].Query,
+		Query:       cfg.Query,
 	}
 
 	body, err := json.Marshal(&in)
@@ -131,8 +135,9 @@ func NewGerritChecker(server *gerrit.Server, delay time.Duration) (*gerritChecke
 // errIrrelevant is a marker error value used for checks that don't apply for a change.
 var errIrrelevant = errors.New("irrelevant")
 
-// checkChange checks a (change, patchset) for correct formatting in the given language. It returns
-// a list of complaints, or the errIrrelevant error if there is nothing to do.
+// checkChange checks a (change, patchset) for correct formatting in
+// the given language. It returns a list of complaints, or the
+// errIrrelevant error if there is nothing to do.
 func (c *gerritChecker) checkChange(changeID string, psID int, language string) ([]string, error) {
 	ch, err := c.server.GetChange(changeID, strconv.Itoa(psID))
 	if err != nil {
@@ -140,8 +145,8 @@ func (c *gerritChecker) checkChange(changeID string, psID int, language string) 
 	}
 	req := linter.FormatRequest{}
 	for n, f := range ch.Files {
-		cfg := linter.Formatters[language]
-		if cfg == nil {
+		cfg, ok := linter.GetFormatter(language)
+		if !ok {
 			return nil, fmt.Errorf("language %q not configured", language)
 		}
 		if !cfg.Regex.MatchString(n) {
@@ -193,9 +198,6 @@ func (c *gerritChecker) checkChange(changeID string, psID int, language string) 
 // execute. It should be executed in a goroutine.
 func (c *gerritChecker) pendingLoop() {
 	for {
-		// TODO: real rate limiting.
-		time.Sleep(c.delay)
-
 		pending, err := c.server.PendingChecksByScheme(checkerScheme)
 		if err != nil {
 			log.Printf("PendingChecksByScheme: %v", err)
@@ -205,10 +207,12 @@ func (c *gerritChecker) pendingLoop() {
 		if len(pending) == 0 {
 			log.Printf("no pending checks")
 		}
-
 		for _, pc := range pending {
 			c.todo <- pc
 		}
+
+		// TODO: real rate limiting.
+		time.Sleep(c.delay)
 	}
 }
 
