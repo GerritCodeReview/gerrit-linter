@@ -42,3 +42,28 @@ def`: "",
 		}
 	}
 }
+
+func TestCommitFooter(t *testing.T) {
+	for in, want := range map[string]string{
+		`abc`: "two paragraphs",
+		`abc
+
+def
+`: "not found",
+		`abc.
+
+myfooter:abc`: "space after",
+		`abc
+
+Change-Id: Iabc123
+myfooter: value!`: "",
+	} {
+		got := checkCommitFooter(in, "myfooter")
+
+		if want == "" && got != "" {
+			t.Errorf("want empty, got %s", got)
+		} else if !strings.Contains(got, want) {
+			t.Errorf("got %s, want substring %s", got, want)
+		}
+	}
+}
