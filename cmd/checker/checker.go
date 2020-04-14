@@ -33,8 +33,8 @@ import (
 // gerritChecker run formatting checks against a gerrit server.
 type gerritChecker struct {
 	server *gerrit.Server
-
-	todo chan *gerrit.PendingChecksInfo
+	delay  time.Duration
+	todo   chan *gerrit.PendingChecksInfo
 }
 
 // checkerScheme is the scheme by which we are registered in the Gerrit server.
@@ -107,19 +107,21 @@ func (gc *gerritChecker) PostChecker(repo, language string, update bool) (*gerri
 // checkerLanguage extracts the language to check for from a checker UUID.
 func checkerLanguage(uuid string) (string, bool) {
 	uuid = strings.TrimPrefix(uuid, checkerScheme+":")
-	fields := strings.Split(uuid, "-")
+	fields := strings.SplitN(uuid, ".", 2)
 	if len(fields) != 2 {
 		return "", false
 	}
+
 	return fields[0], true
 }
 
 // NewGerritChecker creates a server that periodically checks a gerrit
 // server for pending checks.
-func NewGerritChecker(server *gerrit.Server) (*gerritChecker, error) {
+func NewGerritChecker(server *gerrit.Server, delay time.Duration) (*gerritChecker, error) {
 	gc := &gerritChecker{
 		server: server,
 		todo:   make(chan *gerrit.PendingChecksInfo, 5),
+		delay:  delay,
 	}
 
 	go gc.pendingLoop()
@@ -192,7 +194,7 @@ func (c *gerritChecker) checkChange(changeID string, psID int, language string) 
 func (c *gerritChecker) pendingLoop() {
 	for {
 		// TODO: real rate limiting.
-		time.Sleep(10 * time.Second)
+		time.Sleep(c.delay)
 
 		pending, err := c.server.PendingChecksByScheme(checkerScheme)
 		if err != nil {
@@ -205,11 +207,7 @@ func (c *gerritChecker) pendingLoop() {
 		}
 
 		for _, pc := range pending {
-			select {
-			case c.todo <- pc:
-			default:
-				log.Println("too busy; dropping pending check.")
-			}
+			c.todo <- pc
 		}
 	}
 }

@@ -21,6 +21,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"time"
 
 	linter "github.com/google/gerrit-linter"
 	"github.com/google/gerrit-linter/gerrit"
@@ -75,7 +76,7 @@ func main() {
 		log.Fatalf("accounts/self: %v", err)
 	}
 
-	gc, err := NewGerritChecker(g)
+	gc, err := NewGerritChecker(g, 5*time.Second)
 	if err != nil {
 		log.Fatal(err)
 	}
