@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "751de279_dc6e3e20",
+        "filename": "cmd/checker/checker_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T17:22:47Z",
+      "side": 1,
+      "message": "I made it smaller.",
+      "parentUuid": "a1214360_f581a334",
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb808ec3_7b124749",
         "filename": "server.go",
         "patchSetId": 1
