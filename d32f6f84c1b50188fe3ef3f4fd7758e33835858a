@@ -16,6 +16,24 @@
       "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f977c668_bcf049b2",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T11:47:32Z",
+      "side": 0,
+      "message": "the whole async process problematic for testing. In this case, the test server can have some stray changes left from previous runs. These are then caught as well, which fills up the queue (c.todo), leading to log spam of \"too busy\".\n\nI\u0027m reorganizing this to get rid of the parallelism. stay tuned.",
+      "parentUuid": "58cf3194_af5e1fd2",
+      "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
