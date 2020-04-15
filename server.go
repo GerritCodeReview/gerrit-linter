@@ -139,7 +139,6 @@ func Format(req *FormatRequest, rep *FormatReply) error {
 	for language, fs := range splitByLang(req.Files) {
 		var buf bytes.Buffer
 		entry := Formatters[language]
-		log.Println("init", Formatters)
 
 		out, err := entry.Formatter.Format(fs, &buf)
 		if err != nil {

@@ -34,8 +34,8 @@ import (
 // gerritChecker run formatting checks against a gerrit server.
 type gerritChecker struct {
 	server *gerrit.Server
-
-	todo chan *gerrit.PendingChecksInfo
+	delay  time.Duration
+	todo   chan *gerrit.PendingChecksInfo
 }
 
 // checkerScheme is the scheme by which we are registered in the Gerrit server.
@@ -112,15 +112,17 @@ func checkerLanguage(uuid string) (string, bool) {
 	if len(fields) != 2 {
 		return "", false
 	}
+
 	return fields[0], true
 }
 
 // NewGerritChecker creates a server that periodically checks a gerrit
 // server for pending checks.
-func NewGerritChecker(server *gerrit.Server) (*gerritChecker, error) {
+func NewGerritChecker(server *gerrit.Server, delay time.Duration) (*gerritChecker, error) {
 	gc := &gerritChecker{
 		server: server,
 		todo:   make(chan *gerrit.PendingChecksInfo, 5),
+		delay:  delay,
 	}
 
 	return gc, nil
@@ -178,9 +180,9 @@ func (c *gerritChecker) checkChange(changeID string, psID int, language string) 
 				msg = "found a difference"
 			}
 			msgs = append(msgs, fmt.Sprintf("%s: %s", f.Name, msg))
-			log.Printf("file %s: %s", f.Name, f.Message)
+			log.Printf("%s/%d: file %s: %s", changeID, psID, f.Name, f.Message)
 		} else {
-			log.Printf("file %s: OK", f.Name)
+			log.Printf("%s/%d: file %s: OK", changeID, psID, f.Name)
 		}
 	}
 
@@ -257,8 +259,6 @@ func (s status) String() string {
 
 // executeCheck executes the pending checks specified in the argument.
 func (gc *gerritChecker) executeCheck(pc *gerrit.PendingChecksInfo) error {
-	log.Println("checking", pc)
-
 	changeID := strconv.Itoa(pc.PatchSet.ChangeNumber)
 	psID := pc.PatchSet.PatchSetID
 	for uuid := range pc.PendingChecks {
@@ -268,9 +268,8 @@ func (gc *gerritChecker) executeCheck(pc *gerrit.PendingChecksInfo) error {
 			State:       statusRunning.String(),
 			Started:     &now,
 		}
-		log.Printf("posted %s", &checkInput)
-		_, err := gc.server.PostCheck(
-			changeID, psID, &checkInput)
+		log.Printf("change %s, %s set to %q", pc.PatchSet, uuid, statusRunning)
+		_, err := gc.server.PostCheck(changeID, psID, &checkInput)
 		if err != nil {
 			return err
 		}
@@ -279,7 +278,8 @@ func (gc *gerritChecker) executeCheck(pc *gerrit.PendingChecksInfo) error {
 		msg := ""
 		lang, ok := checkerLanguage(uuid)
 		if !ok {
-			return fmt.Errorf("uuid %q had unknown language", uuid)
+			msg = fmt.Sprintf("uuid %q has unknown language", uuid)
+			status = statusFail
 		} else {
 			msgs, err := gc.checkChange(changeID, psID, lang)
 			if err == errIrrelevant {
@@ -299,13 +299,12 @@ func (gc *gerritChecker) executeCheck(pc *gerrit.PendingChecksInfo) error {
 			}
 		}
 
-		log.Printf("status %s for lang %s on %v", status, lang, pc.PatchSet)
+		log.Printf("status %s for %s on %v", status, uuid, pc.PatchSet)
 		checkInput = gerrit.CheckInput{
 			CheckerUUID: uuid,
 			State:       status.String(),
 			Message:     msg,
 		}
-		log.Printf("posted %s", &checkInput)
 
 		if _, err := gc.server.PostCheck(changeID, psID, &checkInput); err != nil {
 			return err
