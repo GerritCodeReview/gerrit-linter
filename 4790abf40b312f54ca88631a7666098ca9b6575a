@@ -22,6 +22,86 @@
       "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb07d05_34038d74",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:54:32Z",
+      "side": 1,
+      "message": "This change doesn\u0027t seem related - wasn\u0027t there a reason for it being at the beginning of the loop?",
+      "range": {
+        "startLine": 215,
+        "startChar": 15,
+        "endLine": 215,
+        "endChar": 20
+      },
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1214360_f581a334",
+        "filename": "cmd/checker/checker_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:54:32Z",
+      "side": 1,
+      "message": "This function only got bigger since the previous change - more reason to shorten it.\nCan you split it to multiple tests that each does one post and one get, perhaps?",
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb808ec3_7b124749",
+        "filename": "server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:54:32Z",
+      "side": 1,
+      "message": "What if I make a change with a subject and no body? Did you ensure there would be an extra \\n after the empty body?",
+      "range": {
+        "startLine": 227,
+        "startChar": 34,
+        "endLine": 227,
+        "endChar": 39
+      },
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc713fe4_4c67c3d1",
+        "filename": "server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:54:32Z",
+      "side": 1,
+      "message": "Yes - isn\u0027t this valid according to this function?\n: :::::::::::: \n\nShouldn\u0027t you also check that the string before each : is non-empty?",
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
