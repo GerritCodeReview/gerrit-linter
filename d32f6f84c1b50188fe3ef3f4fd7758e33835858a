@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "07ac5adc_b45abac2",
+        "filename": "server_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T11:29:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ec24eee_c0932406",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d31dc15a_afeb42e6",
         "filename": "server_test.go",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eda4df35_654209b3",
+        "filename": "server_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T11:29:55Z",
+      "side": 1,
+      "message": "this is doing a check on the error message, not the commit msg itself.",
+      "parentUuid": "d31dc15a_afeb42e6",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
