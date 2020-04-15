@@ -126,15 +126,24 @@ func (g *Server) Get(u *url.URL) ([]byte, error) {
 	return ioutil.ReadAll(rep.Body)
 }
 
-// PostPath posts the given data onto a path.
-func (g *Server) PostPath(p string, contentType string, content []byte) ([]byte, error) {
+// PutPath PUTs the given data onto a path.
+func (g *Server) PutPath(path string, contentType string, content []byte) ([]byte, error) {
+	return g.putPostPath("PUT", path, contentType, content)
+}
+
+// PostPath POSTs the given data onto a path.
+func (g *Server) PostPath(path string, contentType string, content []byte) ([]byte, error) {
+	return g.putPostPath("POST", path, contentType, content)
+}
+
+func (g *Server) putPostPath(method string, pth string, contentType string, content []byte) ([]byte, error) {
 	u := g.URL
-	u.Path = path.Join(u.Path, p)
-	if strings.HasSuffix(p, "/") && !strings.HasSuffix(u.Path, "/") {
+	u.Path = path.Join(u.Path, pth)
+	if strings.HasSuffix(pth, "/") && !strings.HasSuffix(u.Path, "/") {
 		// Ugh.
 		u.Path += "/"
 	}
-	req, err := http.NewRequest("POST", u.String(), bytes.NewBuffer(content))
+	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(content))
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +153,7 @@ func (g *Server) PostPath(p string, contentType string, content []byte) ([]byte,
 		return nil, err
 	}
 	if rep.StatusCode/100 != 2 {
-		return nil, fmt.Errorf("Post %s: status %d", u.String(), rep.StatusCode)
+		return nil, fmt.Errorf("%s %s: status %d", method, u.String(), rep.StatusCode)
 	}
 
 	defer rep.Body.Close()
@@ -258,6 +267,22 @@ func (s *Server) PostCheck(changeID string, psID int, input *CheckInput) (*Check
 
 	var out CheckInfo
 	if err := Unmarshal(res, &out); err != nil {
+		return nil, err
+	}
+
+	return &out, nil
+}
+
+func (s *Server) GetCheck(changeID string, psID int, uuid string) (*CheckInfo, error) {
+	u := s.URL
+	u.Path = path.Join(u.Path, fmt.Sprintf("changes/%s/revisions/%d/checks/%s", changeID, psID, uuid))
+	content, err := s.Get(&u)
+	if err != nil {
+		return nil, err
+	}
+
+	var out CheckInfo
+	if err := Unmarshal(content, &out); err != nil {
 		return nil, err
 	}
 
