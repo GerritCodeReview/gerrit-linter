@@ -22,6 +22,30 @@
       "revId": "8bebdc1dbd82fec9cccc60f5da6ca3ce3c15e961",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d604dfcc_701bd403",
+        "filename": "gerrit/server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T19:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a6ff434_25aab15e",
+      "range": {
+        "startLine": 130,
+        "startChar": 17,
+        "endLine": 130,
+        "endChar": 24
+      },
+      "revId": "8bebdc1dbd82fec9cccc60f5da6ca3ce3c15e961",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
