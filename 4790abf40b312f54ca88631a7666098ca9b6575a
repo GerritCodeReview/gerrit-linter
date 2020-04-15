@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "8874cf88_491bef02",
+        "filename": "server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T17:21:16Z",
+      "side": 1,
+      "message": "if you do that, for sure the required footer isn\u0027t present.",
+      "parentUuid": "fb808ec3_7b124749",
+      "range": {
+        "startLine": 227,
+        "startChar": 34,
+        "endLine": 227,
+        "endChar": 39
+      },
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc713fe4_4c67c3d1",
         "filename": "server.go",
         "patchSetId": 1
@@ -102,6 +126,24 @@
       "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09bd010_66f2cf6a",
+        "filename": "server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T17:21:16Z",
+      "side": 1,
+      "message": "we\u0027re not checking all the footer fields for compliance. We\u0027re just checking that one specific footer is there.",
+      "parentUuid": "dc713fe4_4c67c3d1",
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
