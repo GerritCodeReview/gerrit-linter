@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58cf3194_af5e1fd2",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:21:42Z",
+      "side": 0,
+      "message": "Why is this no longer necessary?",
+      "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd672594_512f44da",
+        "filename": "cmd/checker/checker_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:21:42Z",
+      "side": 1,
+      "message": "You seem to be testing lots of functionality in a single test - consider splitting them.",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 15
+      },
+      "revId": "1f4257cf3b719f9c102ad76ceae0c3af08dede8b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
