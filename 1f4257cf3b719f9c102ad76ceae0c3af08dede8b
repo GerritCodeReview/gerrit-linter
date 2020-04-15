@@ -22,6 +22,30 @@
       "revId": "1f4257cf3b719f9c102ad76ceae0c3af08dede8b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72a1a0e4_bbfe6978",
+        "filename": "cmd/checker/checker_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-15T12:44:20Z",
+      "side": 1,
+      "message": "I shortened the function a bit. I should probably split out the JSON (un)marshaling next.\n\nI don\u0027t think this is a lot of functionality. It\u0027s the basic workflow of the whole system:\n\n1. push something that is broken\n2. checker posts a check that it is broken\n3. push correction  \n4. checker posts a check that it is OK.",
+      "parentUuid": "dd672594_512f44da",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 15
+      },
+      "revId": "1f4257cf3b719f9c102ad76ceae0c3af08dede8b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
