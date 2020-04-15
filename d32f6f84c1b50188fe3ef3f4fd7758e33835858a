@@ -22,6 +22,29 @@
       "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d31dc15a_afeb42e6",
+        "filename": "server_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-15T08:36:44Z",
+      "side": 1,
+      "message": "AFAIK commit messages can\u0027t be empty",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "d32f6f84c1b50188fe3ef3f4fd7758e33835858a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
