@@ -22,6 +22,30 @@
       "revId": "8fb4da607f95fd69d1a34f5c7c90830bc0b83b55",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d8562e_1ceedf9b",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-16T13:00:23Z",
+      "side": 1,
+      "message": "it depends. If you report all the errors at once, you\u0027ll likely get a huge log line at l.195, so you need to pack the errors into a list here, and then on the caller unpack the list again, which is work too. Since we\u0027ll retry them anyway, I think this is OK.",
+      "parentUuid": "795b6a07_bb054d4b",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 0
+      },
+      "revId": "8fb4da607f95fd69d1a34f5c7c90830bc0b83b55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
