@@ -46,6 +46,30 @@
       "revId": "8fb4da607f95fd69d1a34f5c7c90830bc0b83b55",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741531e8_b9558956",
+        "filename": "cmd/checker/checker.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1085183
+      },
+      "writtenOn": "2020-04-17T09:04:33Z",
+      "side": 1,
+      "message": "I can see why that works, but you will likely get duplicate errors this way. I guess that\u0027s expected because you\u0027re retrying all errors anyway.",
+      "parentUuid": "79d8562e_1ceedf9b",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 0
+      },
+      "revId": "8fb4da607f95fd69d1a34f5c7c90830bc0b83b55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
