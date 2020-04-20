@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eaa44d15_062f6738",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2020-04-20T12:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f070b7_90c049af",
+      "range": {
+        "startLine": 9,
+        "startChar": 23,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "4790abf40b312f54ca88631a7666098ca9b6575a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fb07d05_34038d74",
         "filename": "cmd/checker/checker.go",
         "patchSetId": 1
